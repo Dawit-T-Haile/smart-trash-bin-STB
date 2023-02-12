@@ -1,3 +1,4 @@
+// By Abel Tadele and Dawit Tadele for controlling a single trash bin only 
 
 #include <Servo.h>
 const int trigPin = 5;
