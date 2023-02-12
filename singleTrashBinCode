@@ -1,0 +1,43 @@
+// By Abel Tadele and Dawit Tadele for controlling a single trash bin only 
+
+#include <Servo.h>
+const int trigPin = 5;
+const int echoPin = 6;
+const int arduinoLed = 13;
+
+Servo myservo;  // create servo object to control a servo
+
+float duration, distance;
+
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(arduinoLed, OUTPUT);
+  myservo.attach(9);
+  Serial.begin(9600);
+}
+
+void loop() {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  duration = pulseIn(echoPin, HIGH);
+  distance = (duration*.0343)/2;
+  Serial.print("Distance: ");
+  Serial.println(distance);
+  
+  if(distance<20){
+    digitalWrite(arduinoLed, HIGH);
+    myservo.write(0);
+    delay(5000);
+  }
+  else{
+    digitalWrite(arduinoLed, LOW);
+    myservo.write(180);
+  }
+  
+  delay(100);
+}
